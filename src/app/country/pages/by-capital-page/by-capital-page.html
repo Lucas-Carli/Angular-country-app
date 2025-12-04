@@ -1,5 +1,18 @@
 <!-- country-search-input -->
-<country-search-input placeholder="Buscar por capital" />
+<country-search-input placeholder="Buscar por capital" (value)="query.set($event)" />
 
 <!-- country-list -->
-<country-list />
+<!-- en la llamada al componente country list vamos a enviar el producto de la busqueda  -->
+@if (countryResource.isLoading()) {
+<p>Cargando...</p>
+} @else if (countryResource.error()) {
+<h3>No se encontró un país con esa capital</h3>
+} @else if (countryResource.value()) {
+<country-list [countries]="countryResource.value()!" />
+}
+
+<!-- @if (isError()) {
+<h3>{{ isError() }}</h3>
+} @else {
+<country-list [countries]="countries()" />
+} -->
